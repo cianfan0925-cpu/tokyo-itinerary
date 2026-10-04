@@ -20,9 +20,9 @@ jobs:
       - uses: actions/checkout@v4
       - name: Configure public map token
         env:
-          MAPBOX_PUBLIC_TOKEN: ${{ vars.MAPBOX_PUBLIC_TOKEN }}
+          MAPBOX_PUBLIC_TOKEN: ${{ vars.MAPBOX_PUBLIC_TOKEN || secrets.MAPBOX_PUBLIC_TOKEN }}
         run: |
-          node -e 'const fs = require("fs"); fs.writeFileSync("config.js", "window.TRIP_CONFIG = " + JSON.stringify({mapboxToken: process.env.MAPBOX_PUBLIC_TOKEN || "", mapboxStyle: "mapbox://styles/mapbox/standard"}) + ";\n");'
+          node -e 'const fs = require("fs"); const token = (process.env.MAPBOX_PUBLIC_TOKEN || "").trim(); if (!token.startsWith("pk.")) { console.error("Missing MAPBOX_PUBLIC_TOKEN: set a repository variable or secret containing a Mapbox Public Token."); process.exit(1); } fs.writeFileSync("config.js", "window.TRIP_CONFIG = " + JSON.stringify({mapboxToken: token, mapboxStyle: "mapbox://styles/mapbox/standard"}) + ";\n");'
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
