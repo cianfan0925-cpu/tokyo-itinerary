@@ -5,7 +5,7 @@ const days = [
     date: "12", week: "周一", kicker: "10月12日 · 周一", theme: "启程抵日 · 富士急初见",
     activities: [
       { time: "09:05", title: "香港启程", note: "国泰 CX504 前往东京成田", tag: "航班", lat: 22.308, lng: 113.9185, flight: { code: "CX504", icao: "CPA504", from: "HKG", to: "NRT", date: "2026-10-12" }, image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=500&q=82" },
-      { time: "下午", title: "成田 → 新宿 → 富士急", note: "N'EX 转高速巴士，直达酒店门口", tag: "交通", lat: 35.772, lng: 140.3929, route: { origin: [35.772, 140.3929], waypoints: [[35.6896, 139.7006]], destination: [35.4871, 138.78], mode: "transit" }, image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=500&q=82" },
+      { time: "下午", title: "成田 → 富士急", note: "抵达成田机场后前往富士急，入住 Highland Resort", tag: "交通", lat: 35.772, lng: 140.3929, route: { origin: [35.772, 140.3929], destination: [35.4871, 138.78], mode: "transit" }, image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=500&q=82" },
       { time: "晚间", title: "富吉温泉", note: "入住 Highland Resort 后泡汤休息", tag: "温泉", lat: 35.4895, lng: 138.7818, place: { name: "ハイランドリゾートホテル＆スパ", lat: 35.4895, lng: 138.7818 }, article: { title: "Highland Resort 酒店与温泉（富士急官方中文）", url: "https://www.fujiq.jp/zh-CHS/relate/index.html" }, image: "https://images.unsplash.com/photo-1601823984263-b87b59798b70?auto=format&fit=crop&w=500&q=82" }
     ]
   },
