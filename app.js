@@ -34,11 +34,13 @@ const days = [
     ]
   },
   {
-    date: "16", week: "周五", kicker: "10月16日 · 周五", theme: "丰洲海鲜 · teamLab 光影",
+    date: "16", week: "周五", kicker: "10月16日 · 周五", theme: "丰洲光影 · 六本木晚餐与书店",
     activities: [
       { time: "07:00", title: "丰洲海鲜早餐", note: "海鲜市场参观 + 刺身饭早餐", tag: "美食", lat: 35.6446, lng: 139.7838, place: { name: "豊洲市場", lat: 35.6446, lng: 139.7838 }, article: { title: "丰洲市场观光攻略（JeePe 中文指南）", url: "https://www.jeepe.jp/zh/articles/toyosu-market-guide-1554" }, image: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=500&q=82" },
       { time: "09:30", title: "teamLab Planets", note: "准时入场，沉浸在水与光影之中", tag: "已定时", lat: 35.6474, lng: 139.7887, place: { name: "teamLab Planets TOKYO", lat: 35.6474, lng: 139.7887 }, article: { title: "teamLab Planets 东京丰洲（日本国家旅游局）", label: "官方介绍", url: "https://www.japan-travel.cn/spot/2137/" }, image: "https://voyapon.s3.amazonaws.com/wp-content/uploads/2020/10/21213802/Tokyo__teamlabplanets_52-1024x682.jpg" },
-      { time: "下午", title: "银座漫步", note: "艺术博物馆、商店与精致晚餐", tag: "逛街", lat: 35.6717, lng: 139.7648, place: { name: "銀座", lat: 35.6717, lng: 139.7648 }, article: { title: "东京银座保姆级攻略（携程笔记）", label: "逛街攻略", url: "https://m.ctrip.com/webapp/you/community/detail?articleId=227953083" }, image: "https://images.unsplash.com/photo-1604928141064-207cea6f571f?auto=format&fit=crop&w=500&q=82" }
+      { time: "下午", title: "银座漫步", note: "艺术博物馆与商店漫步，晚餐前前往六本木", tag: "逛街", lat: 35.6717, lng: 139.7648, place: { name: "銀座", lat: 35.6717, lng: 139.7648 }, article: { title: "东京银座保姆级攻略（携程笔记）", label: "逛街攻略", url: "https://m.ctrip.com/webapp/you/community/detail?articleId=227953083" }, image: "https://images.unsplash.com/photo-1604928141064-207cea6f571f?auto=format&fit=crop&w=500&q=82" },
+      { time: "19:00", title: "Sukiyaki Yoshino · 六本木寿喜烧", note: "19:00 准时到店用餐 · 六本木站步行约 2 分钟 · 東京都港区六本木4-10-5", tag: "美食", lat: 35.66381549, lng: 139.73206201, place: { name: "すきやき よしの 六本木 東京都港区六本木4-10-5", lat: 35.66381549, lng: 139.73206201 }, article: { title: "Sukiyaki Yoshino 六本木 · 食べログ", label: "餐厅介绍", url: "https://tabelog.com/en/tokyo/A1307/A130701/13295217/" }, phone: "050-5593-3978", image: "https://tblg.k-img.com/restaurant/images/Rvw/244960/640x640_rect_7f0732b6966d8aa14940831f47606c04.jpg" },
+      { time: "晚餐后", title: "六本木 蔦屋書店", note: "餐后逛书店 · 六本木6-11-1，六本木ヒルズけやき坂通り 1F・2F · 官网当前标示书店 9:00–23:00（2F 8:00 起），以当天公告为准", tag: "书店", lat: 35.65868803, lng: 139.72937038, place: { name: "六本木 蔦屋書店 東京都港区六本木6-11-1", lat: 35.65868803, lng: 139.72937038 }, route: { origin: [35.66381549, 139.73206201], destination: [35.65868803, 139.72937038], mode: "walking" }, article: { title: "六本木 蔦屋書店官网", label: "书店官网", url: "https://store.tsite.jp/roppongi/" }, phone: "03-5775-1515", image: "https://store.tsite.jp/static_contents/site/tsite/roppongi/img/about/key.jpg" }
     ]
   },
   {
@@ -99,7 +101,7 @@ function mapMessage(title, message) {
 function activityLight() {
   const activity = days[activeDay].activities[activePin];
   if (!activity) return "day";
-  if (activity.time === "晚间") return "night";
+  if (["晚间", "晚餐后"].includes(activity.time)) return "night";
   const hour = Number(activity.time.split(":")[0]);
   if (Number.isFinite(hour)) return hour < 8 ? "dawn" : hour >= 19 ? "night" : hour >= 17 ? "dusk" : "day";
   return "day";
@@ -190,6 +192,7 @@ function weatherLocation() {
   if (activity.lat < 30) weatherLabel = "香港机场";
   else if (activity.lng > 140) weatherLabel = "成田机场";
   else if (activity.lng < 139) weatherLabel = "富士吉田";
+  else if (/六本木/.test(activity.title)) weatherLabel = "六本木";
   else if (/哈利波特/.test(activity.title)) weatherLabel = "练马";
   else if (/丰洲|teamLab/.test(activity.title)) weatherLabel = "丰洲";
   else if (/银座/.test(activity.title)) weatherLabel = "银座";
